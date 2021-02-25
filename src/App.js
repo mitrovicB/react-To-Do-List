@@ -6,14 +6,13 @@ class ToDoList extends React.Component {
     return (
       <ul>
         {this.props.tasks.map(task => (
-          <div>
-            <li key={task.id}>{task.text}<button>-</button></li>
-          </div>
+            <li key={task.id}>{task.text}</li>
         ))}
      </ul>
     );
   }
 }
+
 
 class ToDoApp extends React.Component {
   constructor(props) {
@@ -41,6 +40,7 @@ class ToDoApp extends React.Component {
       text: this.state.text,
       id: Date.now()
     };
+    
     this.setState(state => ({
       tasks: state.tasks.concat(newTask),
       text: ''
@@ -54,15 +54,19 @@ class ToDoApp extends React.Component {
   render() {
     return (
       <div>
-        <h1>TO DO LIST</h1>
-        <div>
-          <input id="new-todo" 
-          onChange={this.handleChange}
-          value={this.state.text}
-          />
-         <button onClick={this.handleClick}>Add task</button>
+        <div className="app-header">
+          <h1>TO DO LIST</h1>
+          <div>
+            <input id="new-todo" 
+            onChange={this.handleChange}
+            value={this.state.text}
+            />
+          <button onClick={this.handleClick}>Add</button>
+          </div>
         </div>
+        <div  className="todo-list">
         <ToDoList tasks={this.state.tasks} />
+        </div>
       </div>
     );
   }
