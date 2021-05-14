@@ -1,55 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-
-class ToDoList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {this.props.tasks.map(task => (
-            <li key={task.id}>{task.text}</li>
-        ))}
-     </ul>
-    );
-  }
-}
-
 
 class ToDoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      checked: true,
-      tasks: [],
-      text: ''
+      list: [],
+      newItem: ''
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+
   }
 
-  handleChange(event) {
-    this.setState({ text: event.target.value });
+  updateInput(key, value) {
+    //update react state
+    this.setState({ 
+    [key]: value 
+    });
   }
   
-  handleClick(event) {
-    event.preventDefault();
-    if (this.state.text.length === 0) {
-      return;
-    }
+  deleteItem(id){
+    const list = [...this.state.list];
 
-    const newTask = {
-      text: this.state.text,
-      id: Date.now()
+    const updatedList = list.filter(item => item.id !== id);
+
+    this.setState({ list: updatedList });
+}
+
+  addItem() {
+    if (this.state.newItem.length == 0) return;
+
+    const newItem = {
+      id: 1 + Math.random(),
+      value: this.state.newItem.slice(),
     };
-    
-    this.setState(state => ({
-      tasks: state.tasks.concat(newTask),
-      text: ''
-    }));
 
-    console.log("clicked!");
-    console.log(newTask);
+    // copy of current list of items
+    const list = [...this.state.list];
+
+    // add new item to list
+    list.push(newItem);
+
+    // update state with new list and reset newItem
+    this.setState(state => ({
+      list,
+      newItem: ''
+    }));
   }
- 
 
   render() {
     return (
@@ -57,15 +53,29 @@ class ToDoApp extends React.Component {
         <div className="app-header">
           <h1>TO DO LIST</h1>
           <div>
-            <input id="new-todo" 
-            onChange={this.handleChange}
-            value={this.state.text}
+            <input 
+            type="text"
+            placeholder="Add an item"
+            value={this.state.newItem} 
+            onChange={e => this.updateInput("newItem", e.target.value)}
             />
-          <button onClick={this.handleClick}>Add</button>
+          <button 
+          className="addTask-btn" 
+          onClick={() => this.addItem()}>Add</button>
           </div>
         </div>
-        <div  className="todo-list">
-        <ToDoList tasks={this.state.tasks} />
+        <div className="todo-list">
+          <ul>
+          {this.state.list.map(item =>  {
+            return (
+              <li key={item.id}>
+              {item.value}
+                <button onClick={() => this.deleteItem(item.id)}>
+                  <i className="fa fa-trash trashIcon"></i>
+                </button>
+              </li>
+          );})}
+          </ul>
         </div>
       </div>
     );

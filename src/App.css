@@ -28,12 +28,11 @@ h1 {
 }
 
 .todo-list {
-  margin: 2rem 0 1rem;
-  padding: 0 1rem;
-  margin: 30px;
-  width: 22rem;
+  margin: 30px 15px 30px 15px;
+  padding: 30px;
+  width: 85%;
+  height: 50%;
   position: relative;
-  padding: 1rem;
   box-shadow: 0 -0.4rem 1rem -0.4rem rgba(0,0,0,0.2);
 }
 
@@ -41,11 +40,15 @@ h1 {
   text-decoration: line-through;
 }
 
-button {
+.addTask-btn {
   background-color: #42383B;
   color: #fff;
   border: 0;
   padding: 0 20px;
   border-radius: 0 5px 5px 0;
   font-size: 14pt;
+}
+
+.trashIcon {
+    margin: 20px
 }
