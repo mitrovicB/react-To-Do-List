@@ -70,8 +70,8 @@ class ToDoApp extends React.Component {
             return (
               <li key={item.id}>
               {item.value}
-                <button onClick={() => this.deleteItem(item.id)}>
-                  <i className="fa fa-trash trashIcon"></i>
+                <button className="remove-btn" onClick={() => this.deleteItem(item.id)}>
+                  <i className="fa fa-trash trash-icon"></i>
                 </button>
               </li>
           );})}
